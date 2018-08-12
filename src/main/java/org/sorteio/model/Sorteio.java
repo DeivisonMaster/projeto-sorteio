@@ -1,21 +1,41 @@
 package org.sorteio.model;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "participante")
-public class Participante {
 
+@Entity
+@Table(name = "sorteio")
+public class Sorteio {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	private String nome;
-	private String email;
-	private String senha;
+	
+	/* 1 sorteio é composto de pares e cada par possui 2 participantes */
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="sorteio")
+	private Set<Par> pares;
+	
+	public Sorteio() {
+		pares = new LinkedHashSet<>(); // a ordem importa neste dominio
+	}
+	
+	public void adicionaPar(Par par){
+		this.pares.add(par);
+	}
 
 	public Integer getId() {
 		return id;
@@ -32,21 +52,13 @@ public class Participante {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getEmail() {
-		return email;
+	
+	public Set<Par> getPares() {
+		return Collections.unmodifiableSet(pares);
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	
+	public void setPares(Set<Par> pares) {
+		this.pares = pares;
 	}
 
 	@Override
@@ -65,7 +77,7 @@ public class Participante {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Participante other = (Participante) obj;
+		Sorteio other = (Sorteio) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,6 +85,6 @@ public class Participante {
 			return false;
 		return true;
 	}
-
+	
 	
 }

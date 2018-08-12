@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,6 +23,10 @@ public class ControllerCadastroParticipante {
 	
 	public void cadastrar(){
 		participanteDAO.inserir(participante);
+	}
+	
+	public List<Participante> getParticipantes(){
+		return participanteDAO.getParticipantes();
 	}
 	
 	public Participante getParticipante() {
