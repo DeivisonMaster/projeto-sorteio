@@ -7,19 +7,24 @@
 <h:head></h:head>
 <h:body>
 
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome: " />
+			<h:inputText
+				value="#{controllerCadastroParticipante.participante.nome}" />
 
-	<h:panelGrid columns="2">
-		<h:outputLabel value="Nome: " />
-		<h:inputText value="#{controllerCadastroParticipante.participante.nome}"/>
+			<h:outputLabel value="E-mail: " />
+			<h:inputText
+				value="#{controllerCadastroParticipante.participante.email}" />
 
-		<h:outputLabel value="E-mail: " />
-		<h:inputText value="#{controllerCadastroParticipante.participante.email}"/>
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret
+				value="#{controllerCadastroParticipante.participante.senha}" />
 
-		<h:outputLabel value="Senha: " />
-		<h:inputSecret value="#{controllerCadastroParticipante.participante.senha}"/>
-		
-		<h:commandButton value="cadastrar" action="#{controllerCadastroParticipante.cadastrar}"/>
-	</h:panelGrid>
+			<h:commandButton value="cadastrar"
+				action="#{controllerCadastroParticipante.cadastrar}" />
+		</h:panelGrid>
+	</h:form>
 
 </h:body>
 </html>
